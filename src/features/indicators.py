@@ -92,14 +92,10 @@ def calculate_stochastic(df, window=14):
 
     return df
 
-def ma_crossing_strategy(df, fast_window=10, slow_window=50):
+def calculate_moving_average(df, fast_window=10, slow_window=50):
     df = df.copy()
     df["MA_FAST"] = df['Close'].rolling(window = fast_window).mean()
     df["MA_SLOW"] = df['Close'].rolling(window = slow_window).mean()
-
-    df['Signal'] = np.where(df["MA10"] > df["MA50"], 1, 0)
-    df['Daily_Return'] = df['Close'].pct_change()
-    df['Position'] = df['Signal'].diff().fillna(df['Signal'].iloc[0])
 
     return df
 
@@ -117,5 +113,6 @@ def create_technical_indicators(df):
     df = calculate_pvt(df)
     df = calculate_vroc(df)
     df = calculate_stochastic(df)
+    df = calculate_moving_average(df)
 
     return df
