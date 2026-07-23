@@ -11,8 +11,6 @@ def create_date_features(df):
     df['quarter'] = df.index.quarter
     df["day_of_year"] = df.index.dayofyear
     df["week_of_year"] = df.index.isocalendar().week.astype(int)
-    df["is_quarter_end"] = df.index.is_quarter_end.astype(int)
-    df["is_quarter_start"] = df.index.is_quarter_start.astype(int)
 
     return df
 
@@ -46,6 +44,5 @@ def create_all_date_features(df):
 
     df = create_date_features(df)
     df = create_month_boundary_features(df)
-    df = create_month_position_features(df)
 
     return df
